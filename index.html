@@ -20,20 +20,41 @@
 <body>
     <canvas id="canvas"></canvas>
     <script>
+        // Debug logging
+        console.log("Starting game load...");
+        
+        const BASE_URL = "https://aaronherholdt.github.io/emoquest/";
+        
         window.PYGAME_ASSETS = {
-            python: "cpython312/main.js",
-            pythonWasm: "cpython312/main.wasm",
-            pythonData: "cpython312/main.data",
-            game: "emoquest.apk"
+            python: BASE_URL + "cpython312/main.js",
+            pythonWasm: BASE_URL + "cpython312/main.wasm",
+            pythonData: BASE_URL + "cpython312/main.data",
+            game: BASE_URL + "emoquest.apk"
         };
+        
+        // Log asset paths
+        console.log("Asset paths:", window.PYGAME_ASSETS);
+        
+        // Check if files exist
+        async function checkFiles() {
+            for (let [key, path] of Object.entries(window.PYGAME_ASSETS)) {
+                try {
+                    const response = await fetch(path);
+                    console.log(`${path}: ${response.ok ? 'OK' : 'Failed'} (${response.status})`);
+                } catch (e) {
+                    console.error(`Error checking ${path}:`, e);
+                }
+            }
+        }
+        checkFiles();
     </script>
     <script src="pythons.js"></script>
     <script>
         const canvas = document.getElementById('canvas');
         window._sdl2 = canvas;
         window.addEventListener('load', () => {
-            console.log("Loading game...");
-            window.pythonScript = 'emoquest.apk';
+            console.log("Page loaded, initializing game...");
+            window.pythonScript = BASE_URL + 'emoquest.apk';
         });
     </script>
 </body>
