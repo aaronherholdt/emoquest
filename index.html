@@ -19,6 +19,14 @@
 </head>
 <body>
     <canvas id="canvas"></canvas>
+    <script>
+        window.PYGAME_ASSETS = {
+            python: "cpython312/main.js",
+            pythonWasm: "cpython312/main.wasm",
+            pythonData: "cpython312/main.data",
+            game: "emoquest.apk"
+        };
+    </script>
     <script src="pythons.js"></script>
     <script>
         const canvas = document.getElementById('canvas');
